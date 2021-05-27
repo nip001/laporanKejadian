@@ -7,6 +7,7 @@ import Register from '../page/Register';
 import Login from '../page/Login';
 import MainMenu  from '../page/MainMenu';
 import Laporan from '../page/Laporan';
+import { HistoriLaporan } from '../page/HistoriLaporan';
 
 const Stack = createStackNavigator();
 export class Router extends Component {
@@ -18,6 +19,7 @@ export class Router extends Component {
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="MainMenu" component={MainMenu}/>
                 <Stack.Screen name="Laporan" component={Laporan}/>
+                <Stack.Screen name="HistoriLaporan" component={HistoriLaporan}/>
             </Stack.Navigator>
         )
     }

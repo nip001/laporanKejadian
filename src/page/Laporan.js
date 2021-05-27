@@ -19,8 +19,6 @@ export class Laporan extends Component {
             image:"https://asset.kompas.com/crops/7aeyQXv6hi9593Gh1ppQgPeSMkg=/0x8:1747x1172/750x500/data/photo/2020/11/26/5fbf40c4507ae.jpg",
             latitude:"",
             longitude:"",
-            status:"",
-            jam:"",
         }
     }
 
@@ -70,18 +68,15 @@ export class Laporan extends Component {
     };
 
     handlerSubmit(){
-        let date = new Date();
-        this.setState({jam:date.getHours()+":"+date.getMinutes()})
-        if(this.state.kejadian==="bencana"){
-            this.setState({status:"bencana"})
-        }else{
-            this.setState({status:"kriminal"})
-        }
-
+        
         let formData = new FormData();
+        let filename = this.state.image;
+        console.log("nama gambar "+ filename.split('/').pop())
         formData.append('data',JSON.stringify(this.state))
         formData.append('file',{
             uri: this.state.image, //Your Image File Path
+            type: 'image/jpeg', 
+            name: filename.split('/').pop(),
          })
         // formData.append('name',this.state.name);
         // formData.append('kejadian',this.state.kejadian);
@@ -92,9 +87,14 @@ export class Laporan extends Component {
         // formData.append('longitude',this.state.longitude);
         // formData.append('status',this.state.status);
         // formData.append('jam',this.state.jam);
-        axios.post('http://192.168.123.53:8080/user/login/',formData,{headers:{'Content-Type': 'multipart/form-data'}})
+        axios.post('http://192.168.123.53:8080/laporan/',formData,{
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         .then((response)=>{
-            console.log(response.data)
+            alert(response.data)
+            this.props.navigation.navigate("MainMenu")
         })
         .catch((error)=>{
             console.log(error)
@@ -111,6 +111,7 @@ export class Laporan extends Component {
                     selectedValue={this.state.kejadian}
                     style={{ height: 50, width: 300 }}
                     onValueChange={(itemValue) => this.setState({ kejadian: itemValue })}>
+                    <Picker.Item label="Masukan Pilihan"/>
                     <Picker.Item label="Perampokan" value="perampokan" />
                     <Picker.Item label="Bencana" value="bencana" />
                     <Picker.Item label="Pembunuhan" value="pembunuhan" />

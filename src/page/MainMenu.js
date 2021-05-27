@@ -30,7 +30,7 @@ class MainMenu extends Component {
                 <TouchableOpacity style={styles.buttonStyle} onPress={()=>{this.props.navigation.navigate('Laporan')}}>
                     <Text style={styles.textStyle}>Laporan</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonStyle}>
+                <TouchableOpacity style={styles.buttonStyle} onPress={()=>{this.props.navigation.navigate('HistoriLaporan')}}>
                     <Text style={styles.textStyle}>Histori Laporan</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonStyle}>
