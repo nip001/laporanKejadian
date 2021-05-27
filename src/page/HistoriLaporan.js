@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text,FlatList } from 'react-native'
+import { View, Text,FlatList, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import axios from 'axios';
@@ -13,11 +13,11 @@ export class HistoriLaporan extends Component {
     }
 
     componentDidMount() {
-        if(this.props.isLogin){
-            this.props.navigation.navigate('Home')
-        }else{
+        // if(this.props.isLogin){
+        //     this.props.navigation.navigate('Home')
+        // }else{
             this.getData()
-        }
+        // }
     }
 
     getData(){
@@ -39,7 +39,16 @@ export class HistoriLaporan extends Component {
                     data={this.state.dataFlatList}
                     keyExtractor={item=>parseInt(item.id)}
                     renderItem={({item})=>(
-                        <Text>{item.name}</Text>
+                        <View style={{borderWidth:5,borderColor:"red",flexDirection:"row",margin:5}}>
+                            <Image style={{width:100,height:100}}
+                                source={{uri:`http://192.168.123.53:8080/laporan/image/${item.image}`}}
+                            />
+                            <View style={{flexDirection:"column",alignSelf:"center"}}>
+                                <Text>Status : {item.status}</Text>
+                                <Text>Jam : {item.jam}</Text>
+                                <Text>Alamat : {item.alamat}</Text>
+                            </View>
+                        </View>
                     )}
                 />
             </View>
